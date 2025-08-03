@@ -3,784 +3,912 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyrone Hayes - Transformation Coach</title>
+    <title>Tyrone's Transformation - Ripped City Coaching</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .hero-bg {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #ff0000 100%);
+        :root {
+            --ripped-red: #8B0000;
+            --ripped-black: #000000;
+            --ripped-silver: #C0C0C0;
         }
-        .text-gradient {
-            background: linear-gradient(45deg, #ff0000, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        body {
+            background: linear-gradient(135deg, var(--ripped-black) 0%, var(--ripped-red) 100%);
+            font-family: 'Arial', sans-serif;
+            color: white;
         }
-        .coach-dashboard {
-            display: none;
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(139,0,0,0.7));
+            min-height: 100vh;
         }
+        
+        .card {
+            background: rgba(0,0,0,0.8);
+            border: 2px solid var(--ripped-red);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--ripped-red), #FF0000);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #FF0000, var(--ripped-red));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.4);
+        }
+        
+        .social-icon {
+            background: var(--ripped-red);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: #FF0000;
+            transform: scale(1.1);
+        }
+        
+        .coach-login {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--ripped-red);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .coach-login:hover {
+            background: #FF0000;
+            transform: scale(1.1);
+        }
+        
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 1001;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.8);
         }
+        
         .modal-content {
-            background-color: #1a1a1a;
-            margin: 5% auto;
+            background: var(--ripped-black);
+            margin: 15% auto;
             padding: 20px;
-            border: 1px solid #ff0000;
-            width: 90%;
-            max-width: 1200px;
-            border-radius: 10px;
-            max-height: 90vh;
-            overflow-y: auto;
+            border: 2px solid var(--ripped-red);
+            border-radius: 15px;
+            width: 300px;
         }
+        
         .close {
-            color: #aaa;
+            color: var(--ripped-red);
             float: right;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
         }
-        .close:hover {
-            color: #ff0000;
-        }
-        .ai-tool-card {
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            border: 1px solid #ff0000;
-            border-radius: 10px;
+        
+        .dashboard {
+            display: none;
+            background: var(--ripped-black);
+            min-height: 100vh;
             padding: 20px;
-            margin: 10px;
-            transition: transform 0.3s ease;
         }
-        .ai-tool-card:hover {
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tool-card {
+            background: linear-gradient(135deg, var(--ripped-red), #FF0000);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139,0,0,0.3);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(139,0,0,0.1);
+            border: 1px solid var(--ripped-red);
+            border-radius: 5px;
+            color: white;
+        }
+        
+        .input-group input::placeholder, .input-group textarea::placeholder {
+            color: #ccc;
+        }
+        
+        .nonprofit-section {
+            background: rgba(139,0,0,0.1);
+            border: 2px solid var(--ripped-red);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
         }
     </style>
 </head>
-<body class="bg-black text-white">
-
-    <!-- Navigation -->
-    <nav class="bg-black border-b border-red-500 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-gradient">RIPPED CITY COACHING</div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#about" class="hover:text-red-500 transition duration-300">About</a>
-                <a href="#services" class="hover:text-red-500 transition duration-300">Services</a>
-                <a href="#contact" class="hover:text-red-500 transition duration-300">Contact</a>
-            </div>
-            <div class="md:hidden">
-                <button class="text-white">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-                TRANSFORM YOUR LIFE
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 text-gray-300">
-                From 97 pounds heavier to transformation coach.<br>
-                Let me guide your journey to success.
-            </p>
-            <button onclick="openConsultationForm()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition duration-300 transform hover:scale-105">
-                Book Free Consultation
-            </button>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl font-bold mb-8 text-gradient">My Story</h2>
-                <div class="bg-black p-8 rounded-lg border border-red-500">
-                    <p class="text-lg mb-6">
-                        <strong>March 2019:</strong> I lost my mom and found myself 97 pounds heavier, struggling with grief and self-destruction.
-                    </p>
-                    <p class="text-lg mb-6">
-                        <strong>July 2020:</strong> Through dedication and the right approach, I transformed my life completely - losing 97 pounds in 16 months.
-                    </p>
-                    <p class="text-lg mb-6">
-                        <strong>Today:</strong> I help others break through their struggles and achieve the transformation they deserve.
-                    </p>
-                    <p class="text-xl font-semibold text-red-400">
-                        Your transformation starts with one decision. Are you ready?
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-black">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gradient">How I Can Help You</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 p-6 rounded-lg border border-red-500 text-center">
-                    <i class="fas fa-dumbbell text-4xl text-red-500 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-4">1-on-1 Coaching</h3>
-                    <p>Personalized coaching calls to guide your transformation journey.</p>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-lg border border-red-500 text-center">
-                    <i class="fas fa-apple-alt text-4xl text-red-500 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-4">Nutrition Plans</h3>
-                    <p>Custom meal plans that work with your lifestyle and preferences.</p>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-lg border border-red-500 text-center">
-                    <i class="fas fa-chart-line text-4xl text-red-500 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-4">Progress Tracking</h3>
-                    <p>Monitor your journey with detailed progress analysis and adjustments.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-8 text-gradient">Ready to Start?</h2>
-            <p class="text-xl mb-8 text-gray-300">
-                Book your free consultation call and let's discuss your goals.
-            </p>
-            <button onclick="openConsultationForm()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition duration-300 transform hover:scale-105 mb-8">
-                Schedule Your Free Call
-            </button>
-            
-            <!-- Social Media Links -->
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="https://www.tiktok.com/@tyronedhayes" class="text-white hover:text-red-500 text-2xl">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://www.instagram.com/digestinglifebalance" class="text-white hover:text-red-500 text-2xl">
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-black bg-opacity-90 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-red-600">RIPPED CITY</div>
+            <div class="flex items-center space-x-2">
+                <a href="https://www.instagram.com/rippedcityinc" target="_blank" class="social-icon">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=100029187646814" class="text-white hover:text-red-500 text-2xl">
+                <a href="https://www.facebook.com/rippedcityinc" target="_blank" class="social-icon">
                     <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.youtube.com/@rippedcityinc" target="_blank" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.rippedcityinc.com" target="_blank" class="social-icon">
+                    <i class="fas fa-shopping-cart"></i>
                 </a>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Nonprofit Support Section -->
-    <section class="py-16 bg-black border-t border-red-500">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-2xl font-bold mb-4 text-gradient">Supporting Community Health</h3>
-            <p class="text-gray-300 mb-6">
-                Help us promote balanced living and community wellness through Digesting Life Balance.
-            </p>
-            <a href="https://www.zeffy.com/en-US/donation-form/e41efe15-414a-4aaa-be55-0376ff88a404" 
-               class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition duration-300">
-                Support Our Mission
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black border-t border-red-500 py-8">
-        <div class="container mx-auto px-4">
-            <div class="text-center">
-                <p class="text-gray-400 mb-4">© 2019 Ripped City Inc. | Digesting Life Balance</p>
-                <p class="text-sm text-gray-500">Transforming lives through dedicated coaching and community support.</p>
-            </div>
-            <!-- Coach Access Icon -->
-            <div class="fixed bottom-4 right-4">
-                <button onclick="openCoachLogin()" class="bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg transition duration-300">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Consultation Form Modal -->
-    <div id="consultationModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeConsultationForm()">&times;</span>
-            <h2 class="text-3xl font-bold mb-6 text-gradient text-center">Book Your Free Consultation</h2>
-            <form id="consultationForm" onsubmit="submitConsultation(event)">
-                <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Full Name *</label>
-                        <input type="text" name="name" required class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
+    <!-- Main Landing Page -->
+    <div id="landingPage">
+        <!-- Hero Section -->
+        <section class="hero-section flex items-center justify-center px-4 pt-20">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <!-- Story Section -->
+                    <div class="card p-8">
+                        <h1 class="text-4xl font-bold mb-6 text-red-600">From Rock Bottom to Transformation</h1>
+                        <p class="text-lg mb-4">
+                            After losing my mother, I hit rock bottom at 338 pounds. Every blood test came back with concerning results. I was physically exhausted, emotionally drained, and medically at risk.
+                        </p>
+                        <p class="text-lg mb-4">
+                            That's when everything changed. With guidance from my friend Mark Alvisi and training partner Duveuil Valcena, I began the most transformative journey of my life.
+                        </p>
+                        <p class="text-xl font-bold text-red-400 mb-4">
+                            97 pounds lost in 16 months (March 2019 - July 2020)
+                        </p>
+                        <p class="text-lg mb-6">
+                            This transformation wasn't just physical. With every pound shed, I gained mental clarity, emotional strength, and a sense of purpose I'd never experienced before.
+                        </p>
+                        <p class="text-lg">
+                            <strong>Ripped City Inc</strong> was born from this journey - not just as a clothing brand, but as a testament to what's possible when you refuse to give up on yourself.
+                        </p>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Email Address *</label>
-                        <input type="email" name="email" required class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
+
+                    <!-- Client Intake Form -->
+                    <div class="card p-8">
+                        <h2 class="text-3xl font-bold mb-6 text-red-600">Start Your Transformation</h2>
+                        <form id="clientIntake">
+                            <div class="input-group">
+                                <input type="text" id="clientName" placeholder="Full Name" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" id="clientEmail" placeholder="Email Address" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="tel" id="clientPhone" placeholder="Phone Number" required>
+                            </div>
+                            <div class="input-group">
+                                <select id="bloodType">
+                                    <option value="">Select Blood Type</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <textarea id="clientGoals" placeholder="What are your transformation goals?" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg text-white font-bold">
+                                BEGIN MY TRANSFORMATION
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2">Phone Number *</label>
-                    <input type="tel" name="phone" required class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
+            </div>
+        </section>
+
+        <!-- What I Offer Section -->
+        <section class="py-20 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl font-bold text-center mb-12 text-red-600">What I Offer</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card p-6 text-center">
+                        <i class="fas fa-dumbbell text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">Transformation Coaching</h3>
+                        <p>Complete life overhauls through proven nutrition and training protocols. Real results that last.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <i class="fas fa-users text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">Community Support</h3>
+                        <p>As a community mentor, I create support systems that help you stay motivated and accountable.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <i class="fas fa-bullseye text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">Direction & Motivation</h3>
+                        <p>Get unstuck and find your path. I help you discover your potential and take action toward your goals.</p>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2">Primary Goal *</label>
-                    <select name="goal" required class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
-                        <option value="">Select your main goal</option>
-                        <option value="weight-loss">Weight Loss</option>
-                        <option value="muscle-gain">Muscle Building</option>
-                        <option value="health-optimization">Health Optimization</option>
-                        <option value="lifestyle-change">Complete Lifestyle Change</option>
-                        <option value="other">Other</option>
-                    </select>
+            </div>
+        </section>
+
+        <!-- Nonprofit Section -->
+        <section class="py-20 px-4">
+            <div class="container mx-auto max-w-4xl">
+                <div class="nonprofit-section text-center">
+                    <h2 class="text-3xl font-bold mb-6 text-red-600">Support Our Mission</h2>
+                    <h3 class="text-2xl font-bold mb-4">Digesting Life Balance</h3>
+                    <p class="text-lg mb-6">
+                        Our nonprofit focuses on improving community health through education, support, and resources. 
+                        Your donation helps us provide free coaching and nutritional guidance to those who need it most.
+                    </p>
+                    <div class="flex justify-center space-x-6 mb-6">
+                        <a href="https://www.zeffy.com/en-US/donation-form/e41efe15-414a-4aaa-be55-0376ff88a404" target="_blank" class="btn-primary py-3 px-8 rounded-lg text-white font-bold">
+                            <i class="fas fa-heart mr-2"></i>DONATE NOW
+                        </a>
+                    </div>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://www.instagram.com/digestinglifebalance?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=100029187646814" target="_blank" class="social-icon">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-300">
+                        Digesting Life Balance is a registered nonprofit organization. All donations are tax-deductible.
+                    </p>
                 </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-bold mb-2">Tell me about your current situation</label>
-                    <textarea name="situation" rows="4" class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white" placeholder="What challenges are you facing? What have you tried before?"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded transition duration-300">
-                    Schedule My Free Consultation
-                </button>
-            </form>
-        </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 text-center">
+            <p class="text-gray-400">© 2019 Ripped City Inc | No Sacrifice, No Victory</p>
+        </footer>
     </div>
 
     <!-- Coach Login Modal -->
-    <div id="coachLoginModal" class="modal">
-        <div class="modal-content max-w-md">
-            <span class="close" onclick="closeCoachLogin()">&times;</span>
-            <h2 class="text-2xl font-bold mb-6 text-gradient text-center">Coach Access</h2>
-            <form onsubmit="coachLogin(event)">
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2">Username</label>
-                    <input type="text" id="coachUsername" class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-red-600">Coach Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username" required>
                 </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-bold mb-2">Password</label>
-                    <input type="password" id="coachPassword" class="w-full p-3 bg-gray-800 border border-gray-600 rounded focus:border-red-500 text-white">
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded transition duration-300">
-                    Access Dashboard
-                </button>
+                <button type="submit" class="btn-primary w-full py-2 px-4 rounded">Login</button>
             </form>
         </div>
     </div>
 
     <!-- Coach Dashboard -->
-    <div id="coachDashboard" class="coach-dashboard fixed inset-0 bg-black z-50 overflow-y-auto">
-        <div class="container mx-auto p-4">
-            <!-- Dashboard Header -->
-            <div class="flex justify-between items-center mb-6 border-b border-red-500 pb-4">
-                <h1 class="text-3xl font-bold text-gradient">Coach Dashboard</h1>
-                <button onclick="closeCoachDashboard()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
-                    <i class="fas fa-times"></i> Close
-                </button>
+    <div id="dashboard" class="dashboard">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-red-600">Coach Dashboard</h1>
+            <button id="logoutBtn" class="btn-primary py-2 px-4 rounded">Logout</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Client Management -->
+            <div class="tool-card" onclick="showClientManagement()">
+                <i class="fas fa-users text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Client Management</h3>
+                <p>View profiles, track progress, manage client information</p>
             </div>
 
-            <!-- Dashboard Navigation -->
-            <div class="flex flex-wrap mb-6 space-x-2 space-y-2">
-                <button onclick="showDashboardSection('overview')" class="dashboard-nav-btn bg-red-600 text-white px-4 py-2 rounded">Overview</button>
-                <button onclick="showDashboardSection('clients')" class="dashboard-nav-btn bg-gray-700 text-white px-4 py-2 rounded">Clients</button>
-                <button onclick="showDashboardSection('ai-tools')" class="dashboard-nav-btn bg-gray-700 text-white px-4 py-2 rounded">AI Tools</button>
-                <button onclick="showDashboardSection('consultations')" class="dashboard-nav-btn bg-gray-700 text-white px-4 py-2 rounded">Consultations</button>
-                <button onclick="showDashboardSection('payments')" class="dashboard-nav-btn bg-gray-700 text-white px-4 py-2 rounded">Payments</button>
+            <!-- Payment Management -->
+            <div class="tool-card" onclick="showPaymentManagement()">
+                <i class="fas fa-credit-card text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Payment Management</h3>
+                <p>Send payment links, custom pricing, invoice generation</p>
             </div>
 
-            <!-- Overview Section -->
-            <div id="overview-section" class="dashboard-section">
-                <div class="grid md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-gray-900 p-4 rounded border border-red-500">
-                        <h3 class="text-lg font-bold text-red-400">Active Clients</h3>
-                        <p class="text-2xl font-bold">12</p>
-                    </div>
-                    <div class="bg-gray-900 p-4 rounded border border-red-500">
-                        <h3 class="text-lg font-bold text-red-400">Pending Consultations</h3>
-                        <p class="text-2xl font-bold">5</p>
-                    </div>
-                    <div class="bg-gray-900 p-4 rounded border border-red-500">
-                        <h3 class="text-lg font-bold text-red-400">Monthly Revenue</h3>
-                        <p class="text-2xl font-bold">$4,800</p>
-                    </div>
-                    <div class="bg-gray-900 p-4 rounded border border-red-500">
-                        <h3 class="text-lg font-bold text-red-400">Success Rate</h3>
-                        <p class="text-2xl font-bold">94%</p>
-                    </div>
-                </div>
-                <div class="bg-gray-900 p-6 rounded border border-red-500">
-                    <h3 class="text-xl font-bold mb-4">Revenue Chart</h3>
-                    <canvas id="revenueChart" style="height: 400px;"></canvas>
-                </div>
+            <!-- Financial Metrics -->
+            <div class="tool-card" onclick="showFinancialMetrics()">
+                <i class="fas fa-chart-line text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Financial Metrics</h3>
+                <p>Revenue tracking, profit analysis, business analytics</p>
             </div>
 
-            <!-- AI Tools Section -->
-            <div id="ai-tools-section" class="dashboard-section" style="display: none;">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    
-                    <!-- AI Meal Planner -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-utensils"></i> AI Meal Planner</h3>
-                        <form onsubmit="generateMealPlan(event)">
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Client Name</label>
-                                <input type="text" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Goal</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Weight Loss</option>
-                                    <option>Muscle Gain</option>
-                                    <option>Maintenance</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Food Allergies</label>
-                                <input type="text" placeholder="e.g., dairy, gluten, nuts" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                            </div>
-                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Generate Plan</button>
-                        </form>
-                    </div>
-
-                    <!-- AI Workout Creator -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-dumbbell"></i> AI Workout Creator</h3>
-                        <form onsubmit="generateWorkout(event)">
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Experience Level</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Beginner</option>
-                                    <option>Intermediate</option>
-                                    <option>Advanced</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Equipment Available</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Full Gym</option>
-                                    <option>Home Gym</option>
-                                    <option>Bodyweight Only</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Time per Session</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>30 minutes</option>
-                                    <option>45 minutes</option>
-                                    <option>60 minutes</option>
-                                    <option>75+ minutes</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Create Workout</button>
-                        </form>
-                    </div>
-
-                    <!-- Bloodwork Analyzer -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-microscope"></i> Bloodwork Analyzer</h3>
-                        <div class="mb-3">
-                            <label class="block text-sm mb-1">Upload Bloodwork</label>
-                            <input type="file" accept="image/*,application/pdf" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                        </div>
-                        <div class="mb-3">
-                            <label class="block text-sm mb-1">Client Age</label>
-                            <input type="number" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                        </div>
-                        <div class="mb-3">
-                            <label class="block text-sm mb-1">Gender</label>
-                            <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <button onclick="analyzeBloodwork()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Analyze Results</button>
-                    </div>
-
-                    <!-- Supplement Recommender -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-pills"></i> Supplement AI</h3>
-                        <form onsubmit="recommendSupplements(event)">
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Health Goals</label>
-                                <select multiple class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Weight Loss</option>
-                                    <option>Muscle Building</option>
-                                    <option>Energy Boost</option>
-                                    <option>Recovery</option>
-                                    <option>Immune Support</option>
-                                    <option>Cognitive Health</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Current Medications</label>
-                                <textarea class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" rows="2"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Get Recommendations</button>
-                        </form>
-                    </div>
-
-                    <!-- Peptide Protocols -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-dna"></i> Peptide Protocols</h3>
-                        <form onsubmit="recommendPeptides(event)">
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Primary Goal</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Weight Management</option>
-                                    <option>Muscle Building</option>
-                                    <option>Anti-Aging</option>
-                                    <option>Recovery</option>
-                                    <option>Cognitive Enhancement</option>
-                                    <option>Anxiety/Stress</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Experience Level</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Beginner</option>
-                                    <option>Intermediate</option>
-                                    <option>Advanced</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <p class="text-xs text-gray-400">Latest peptides: Retatrutide, Semaglutide, BPC-157, TB-500, and more</p>
-                            </div>
-                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Create Protocol</button>
-                        </form>
-                    </div>
-
-                    <!-- Holistic Recommendations -->
-                    <div class="ai-tool-card">
-                        <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-leaf"></i> Holistic Health AI</h3>
-                        <form onsubmit="generateHolisticPlan(event)">
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Health Concerns</label>
-                                <select multiple class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Stress/Anxiety</option>
-                                    <option>Digestive Issues</option>
-                                    <option>Sleep Problems</option>
-                                    <option>Inflammation</option>
-                                    <option>Hormonal Imbalance</option>
-                                    <option>Low Energy</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="block text-sm mb-1">Preferred Approach</label>
-                                <select class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
-                                    <option>Herbal Medicine</option>
-                                    <option>Lifestyle Changes</option>
-                                    <option>Nutritional Therapy</option>
-                                    <option>Mind-Body Practices</option>
-                                    <option>Combination Approach</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Generate Plan</button>
-                        </form>
-                    </div>
-                </div>
+            <!-- AI Meal Planner -->
+            <div class="tool-card" onclick="showMealPlanner()">
+                <i class="fas fa-utensils text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">AI Meal Planner</h3>
+                <p>Blood type optimized meal plans and nutrition guidance</p>
             </div>
 
-            <!-- Clients Section -->
-            <div id="clients-section" class="dashboard-section" style="display: none;">
-                <div class="bg-gray-900 p-6 rounded border border-red-500">
-                    <h3 class="text-xl font-bold mb-4">Client Management</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="border-b border-gray-700">
-                                    <th class="text-left p-2">Name</th>
-                                    <th class="text-left p-2">Program</th>
-                                    <th class="text-left p-2">Start Date</th>
-                                    <th class="text-left p-2">Progress</th>
-                                    <th class="text-left p-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-gray-800">
-                                    <td class="p-2">John Smith</td>
-                                    <td class="p-2">Weight Loss</td>
-                                    <td class="p-2">2025-01-01</td>
-                                    <td class="p-2">-15 lbs</td>
-                                    <td class="p-2">
-                                        <button class="bg-blue-600 text-white px-2 py-1 rounded text-xs">View</button>
-                                        <button class="bg-green-600 text-white px-2 py-1 rounded text-xs">Message</button>
-                                    </td>
-                                </tr>
-                                <tr class="border-b border-gray-800">
-                                    <td class="p-2">Sarah Johnson</td>
-                                    <td class="p-2">Muscle Building</td>
-                                    <td class="p-2">2024-12-15</td>
-                                    <td class="p-2">+8 lbs muscle</td>
-                                    <td class="p-2">
-                                        <button class="bg-blue-600 text-white px-2 py-1 rounded text-xs">View</button>
-                                        <button class="bg-green-600 text-white px-2 py-1 rounded text-xs">Message</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <!-- AI Supplement Advisor -->
+            <div class="tool-card" onclick="showSupplementAdvisor()">
+                <i class="fas fa-pills text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">AI Supplement Advisor</h3>
+                <p>Personalized supplement recommendations with interactions</p>
             </div>
 
-            <!-- Consultations Section -->
-            <div id="consultations-section" class="dashboard-section" style="display: none;">
-                <div class="bg-gray-900 p-6 rounded border border-red-500">
-                    <h3 class="text-xl font-bold mb-4">Upcoming Consultations</h3>
-                    <div class="space-y-4">
-                        <div class="bg-gray-800 p-4 rounded border border-gray-700">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-bold">Mike Davis</h4>
-                                    <p class="text-sm text-gray-400">mike.davis@email.com | (555) 123-4567</p>
-                                    <p class="text-sm">Goal: Weight Loss | Current situation: Lost motivation after gaining 20 lbs</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-bold text-red-400">Today 2:00 PM</p>
-                                    <button class="bg-green-600 text-white px-3 py-1 rounded text-sm mt-2">Join Call</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded border border-gray-700">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-bold">Lisa Chen</h4>
-                                    <p class="text-sm text-gray-400">lisa.chen@email.com | (555) 987-6543</p>
-                                    <p class="text-sm">Goal: Health Optimization | Current situation: Recent bloodwork shows concerning trends</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-bold text-red-400">Tomorrow 10:00 AM</p>
-                                    <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm mt-2">Prepare</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- AI Bloodwork Analyzer -->
+            <div class="tool-card" onclick="showBloodworkAnalyzer()">
+                <i class="fas fa-microscope text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">AI Bloodwork Analyzer</h3>
+                <p>Comprehensive lab analysis with blood type considerations</p>
             </div>
 
-            <!-- Payments Section -->
-            <div id="payments-section" class="dashboard-section" style="display: none;">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-gray-900 p-6 rounded border border-red-500">
-                        <h3 class="text-xl font-bold mb-4">Payment Summary</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span>This Month:</span>
-                                <span class="font-bold text-green-400">$4,800</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Last Month:</span>
-                                <span class="font-bold">$3,600</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Total YTD:</span>
-                                <span class="font-bold text-red-400">$48,000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-900 p-6 rounded border border-red-500">
-                        <h3 class="text-xl font-bold mb-4">Recent Transactions</h3>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span>John Smith - Monthly</span>
-                                <span class="text-green-400">+$400</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Sarah Johnson - Program</span>
-                                <span class="text-green-400">+$800</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Mike Davis - Consultation</span>
-                                <span class="text-green-400">+$150</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- AI Peptide Protocols -->
+            <div class="tool-card" onclick="showPeptideProtocols()">
+                <i class="fas fa-syringe text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">AI Peptide Protocols</h3>
+                <p>Advanced peptide recommendations and dosing protocols</p>
+            </div>
+
+            <!-- Contest Prep -->
+            <div class="tool-card" onclick="showContestPrep()">
+                <i class="fas fa-trophy text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Contest Prep</h3>
+                <p>Competition preparation protocols and peak week planning</p>
             </div>
         </div>
+
+        <!-- Tool Panels -->
+        <div id="toolPanels" class="mt-8"></div>
+    </div>
+
+    <!-- Coach Login Button -->
+    <div class="coach-login" onclick="openLoginModal()">
+        <i class="fas fa-cog text-white"></i>
     </div>
 
     <script>
-        // API Configuration
-        const API_CONFIG = {
-            NINJA_API_KEY: 'zXu96BsKX+z1qn3zAN0+xg==DwdEXydUS3ZEie3g',
-            NUTRITION_API_KEY: 'A8pvtZZ8qy8NWUVfhwfrZKw2VC5DRIcJMFFAsYRQ',
-            HEALTH_FDA_API_KEY: 'ehuI6hq7axc1WIPZHl7kDo1o26AuTqmJ5oZXGU7g',
-            EXERCISE_DB_KEY: 'dbe6db4509msh6df1843fb03ea61p13b52fjsne00a75d52c16'
-        };
+        // Modal functionality
+        const modal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const closeBtn = document.getElementsByClassName('close')[0];
 
-        // Consultation Form Functions
-        function openConsultationForm() {
-            document.getElementById('consultationModal').style.display = 'block';
+        function openLoginModal() {
+            modal.style.display = 'block';
         }
 
-        function closeConsultationForm() {
-            document.getElementById('consultationModal').style.display = 'none';
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
         }
 
-        function submitConsultation(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            
-            // Here you would normally send the data to your Google Apps Script
-            // For now, we'll show a success message
-            alert('Thank you! Your consultation request has been submitted. I\'ll contact you within 24 hours to schedule your free call.');
-            closeConsultationForm();
-            event.target.reset();
-        }
-
-        // Coach Login Functions
-        function openCoachLogin() {
-            document.getElementById('coachLoginModal').style.display = 'block';
-        }
-
-        function closeCoachLogin() {
-            document.getElementById('coachLoginModal').style.display = 'none';
-        }
-
-        function coachLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('coachUsername').value;
-            const password = document.getElementById('coachPassword').value;
-            
-            // Simple authentication (in production, use proper authentication)
-            if (username === 'tyrone' && password === 'RippedCity2025') {
-                closeCoachLogin();
-                document.getElementById('coachDashboard').style.display = 'block';
-                document.body.style.overflow = 'hidden';
-                initializeDashboard();
-            } else {
-                alert('Invalid credentials');
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
             }
         }
 
-        function closeCoachDashboard() {
-            document.getElementById('coachDashboard').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Dashboard Functions
-        function initializeDashboard() {
-            showDashboardSection('overview');
-            createRevenueChart();
-        }
-
-        function showDashboardSection(section) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.dashboard-section');
-            sections.forEach(s => s.style.display = 'none');
+        // Login functionality
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             
-            // Show selected section
-            document.getElementById(section + '-section').style.display = 'block';
+            if (username === '1' && password === '1') {
+                modal.style.display = 'none';
+                document.getElementById('landingPage').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                alert('Invalid credentials');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('landingPage').style.display = 'block';
+            document.getElementById('loginForm').reset();
+        });
+
+        // Client intake form
+        document.getElementById('clientIntake').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value;
+            const email = document.getElementById('clientEmail').value;
+            const phone = document.getElementById('clientPhone').value;
+            const bloodType = document.getElementById('bloodType').value;
+            const goals = document.getElementById('clientGoals').value;
             
-            // Update navigation buttons
-            const navButtons = document.querySelectorAll('.dashboard-nav-btn');
-            navButtons.forEach(btn => {
-                btn.classList.remove('bg-red-600');
-                btn.classList.add('bg-gray-700');
-            });
-            event.target.classList.remove('bg-gray-700');
-            event.target.classList.add('bg-red-600');
+            // Store client data (in real app, this would go to database)
+            const clientData = {
+                name: name,
+                email: email,
+                phone: phone,
+                bloodType: bloodType,
+                goals: goals,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Store in localStorage for demo
+            let clients = JSON.parse(localStorage.getItem('clients') || '[]');
+            clients.push(clientData);
+            localStorage.setItem('clients', JSON.stringify(clients));
+            
+            alert('Thank you! Your information has been submitted. We\'ll be in touch soon to begin your transformation journey!');
+            this.reset();
+        });
+
+        // Dashboard tool functions
+        function showClientManagement() {
+            const panel = document.getElementById('toolPanels');
+            const clients = JSON.parse(localStorage.getItem('clients') || '[]');
+            
+            let html = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">Client Management</h2>
+                    <div class="grid gap-4">
+            `;
+            
+            if (clients.length === 0) {
+                html += '<p>No clients registered yet.</p>';
+            } else {
+                clients.forEach((client, index) => {
+                    html += `
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-bold">${client.name}</h3>
+                            <p><strong>Email:</strong> ${client.email}</p>
+                            <p><strong>Phone:</strong> ${client.phone}</p>
+                            <p><strong>Blood Type:</strong> ${client.bloodType}</p>
+                            <p><strong>Goals:</strong> ${client.goals}</p>
+                            <p><strong>Joined:</strong> ${new Date(client.timestamp).toLocaleDateString()}</p>
+                            <button class="btn-primary mt-2 py-1 px-3 rounded" onclick="viewClientProfile(${index})">View Profile</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div></div>';
+            panel.innerHTML = html;
         }
 
-        function createRevenueChart() {
-            const ctx = document.getElementById('revenueChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Monthly Revenue',
-                        data: [2400, 2800, 3200, 3600, 4200, 4800],
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'white'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white'
-                            },
-                            grid: {
-                                color: '#374151'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white',
-                                callback: function(value) {
-                                    return '$' + value;
-                                }
-                            },
-                            grid: {
-                                color: '#374151'
-                            }
-                        }
-                    }
-                }
-            });
+        function viewClientProfile(index) {
+            const clients = JSON.parse(localStorage.getItem('clients') || '[]');
+            const client = clients[index];
+            if (client) {
+                alert(`Client Profile:\n\nName: ${client.name}\nEmail: ${client.email}\nPhone: ${client.phone}\nBlood Type: ${client.bloodType}\nGoals: ${client.goals}\nJoined: ${new Date(client.timestamp).toLocaleDateString()}`);
+            }
         }
 
-        // AI Tool Functions
-        function generateMealPlan(event) {
-            event.preventDefault();
-            alert('AI Meal Plan Generated!\n\nThis would integrate with your nutrition API to create personalized meal plans based on the client\'s goals, allergies, and preferences.');
+        function showPaymentManagement() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">Payment Management</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Generate Payment Link</h3>
+                            <div class="input-group">
+                                <input type="text" id="clientNamePayment" placeholder="Client Name">
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="paymentAmount" placeholder="Amount ($)">
+                            </div>
+                            <div class="input-group">
+                                <select id="serviceType">
+                                    <option value="">Select Service</option>
+                                    <option value="1on1">1-on-1 Coaching</option>
+                                    <option value="group">Group Program</option>
+                                    <option value="consultation">Consultation</option>
+                                    <option value="meal-plan">Meal Plan</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="generatePaymentLink()">Generate Link</button>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Custom Pricing</h3>
+                            <div class="bg-gray-800 p-4 rounded">
+                                <p><strong>1-on-1 Coaching:</strong> $200/month</p>
+                                <p><strong>Group Program:</strong> $97/month</p>
+                                <p><strong>Consultation:</strong> $75/session</p>
+                                <p><strong>Meal Plan:</strong> $50/plan</p>
+                            </div>
+                            <button class="btn-primary w-full mt-4 py-2 px-4 rounded" onclick="updatePricing()">Update Pricing</button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        function generateWorkout(event) {
-            event.preventDefault();
-            alert('AI Workout Plan Created!\n\nThis would use your exercise database API to generate customized workout routines based on experience level, equipment, and time constraints.');
+        function generatePaymentLink() {
+            const clientName = document.getElementById('clientNamePayment').value;
+            const amount = document.getElementById('paymentAmount').value;
+            const service = document.getElementById('serviceType').value;
+            
+            if (clientName && amount && service) {
+                const paymentLink = `https://buy.stripe.com/payment-link-${Date.now()}`;
+                alert(`Payment link generated for ${clientName}:\n\nService: ${service}\nAmount: $${amount}\nLink: ${paymentLink}\n\nSend this link to your client for secure payment processing.`);
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+
+        function updatePricing() {
+            alert('Pricing update feature - connect to your payment processor API');
+        }
+
+        function showFinancialMetrics() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">Financial Metrics Report</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-gray-800 p-4 rounded text-center">
+                            <h3 class="text-2xl font-bold text-green-400">$12,450</h3>
+                            <p>Monthly Revenue</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded text-center">
+                            <h3 class="text-2xl font-bold text-blue-400">23</h3>
+                            <p>Active Clients</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded text-center">
+                            <h3 class="text-2xl font-bold text-yellow-400">$541</h3>
+                            <p>Avg Client Value</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-lg font-bold mb-3">Revenue Breakdown</h3>
+                        <div class="bg-gray-800 p-4 rounded">
+                            <p>1-on-1 Coaching: $8,400 (67%)</p>
+                            <p>Group Programs: $2,910 (23%)</p>
+                            <p>Consultations: $900 (7%)</p>
+                            <p>Meal Plans: $240 (3%)</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showMealPlanner() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">AI Meal Planner</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Client Information</h3>
+                            <div class="input-group">
+                                <select id="mealBloodType">
+                                    <option value="">Select Blood Type</option>
+                                    <option value="O">Type O - High Protein</option>
+                                    <option value="A">Type A - Plant-Based</option>
+                                    <option value="B">Type B - Balanced</option>
+                                    <option value="AB">Type AB - Mixed</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select id="dietaryPreference">
+                                    <option value="">Dietary Preference</option>
+                                    <option value="standard">Standard</option>
+                                    <option value="keto">Ketogenic</option>
+                                    <option value="vegan">Vegan</option>
+                                    <option value="vegetarian">Vegetarian</option>
+                                    <option value="pescatarian">Pescatarian</option>
+                                    <option value="diabetic">Diabetic-Friendly</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="targetCalories" placeholder="Target Calories">
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="generateMealPlan()">Generate Meal Plan</button>
+                        </div>
+                        <div id="mealPlanResults">
+                            <h3 class="text-lg font-bold mb-3">Generated Meal Plan</h3>
+                            <p class="text-gray-400">Select blood type and preferences to generate a personalized meal plan.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateMealPlan() {
+            const bloodType = document.getElementById('mealBloodType').value;
+            const dietPref = document.getElementById('dietaryPreference').value;
+            const calories = document.getElementById('targetCalories').value;
+            
+            if (bloodType && dietPref && calories) {
+                const resultsDiv = document.getElementById('mealPlanResults');
+                resultsDiv.innerHTML = `
+                    <h3 class="text-lg font-bold mb-3">Personalized Meal Plan</h3>
+                    <div class="bg-gray-800 p-4 rounded">
+                        <p><strong>Blood Type:</strong> ${bloodType}</p>
+                        <p><strong>Diet:</strong> ${dietPref}</p>
+                        <p><strong>Target Calories:</strong> ${calories}</p>
+                        <hr class="my-3">
+                        <p><strong>Breakfast:</strong> Blood type optimized protein + complex carbs</p>
+                        <p><strong>Lunch:</strong> Lean protein + vegetables + approved grains</p>
+                        <p><strong>Dinner:</strong> Blood type specific protein + green vegetables</p>
+                        <p><strong>Snacks:</strong> Compatible nuts/fruits based on blood type</p>
+                        <button class="btn-primary mt-3 py-1 px-3 rounded">Download Detailed Plan</button>
+                    </div>
+                `;
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+
+        function showSupplementAdvisor() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">AI Supplement Advisor</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Client Assessment</h3>
+                            <div class="input-group">
+                                <select id="suppBloodType">
+                                    <option value="">Blood Type</option>
+                                    <option value="O">Type O</option>
+                                    <option value="A">Type A</option>
+                                    <option value="B">Type B</option>
+                                    <option value="AB">Type AB</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select id="fitnessGoal">
+                                    <option value="">Fitness Goal</option>
+                                    <option value="weight-loss">Weight Loss</option>
+                                    <option value="muscle-gain">Muscle Gain</option>
+                                    <option value="endurance">Endurance</option>
+                                    <option value="recovery">Recovery</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <textarea id="currentMeds" placeholder="Current medications/supplements" rows="3"></textarea>
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="generateSupplementPlan()">Generate Supplement Plan</button>
+                        </div>
+                        <div id="supplementResults">
+                            <h3 class="text-lg font-bold mb-3">Supplement Recommendations</h3>
+                            <p class="text-gray-400">Complete the assessment to receive personalized supplement recommendations with interaction warnings.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSupplementPlan() {
+            const resultsDiv = document.getElementById('supplementResults');
+            resultsDiv.innerHTML = `
+                <h3 class="text-lg font-bold mb-3">Personalized Supplement Plan</h3>
+                <div class="bg-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-yellow-400">Recommended Supplements:</h4>
+                    <p>• Whey Protein (blood type compatible)</p>
+                    <p>• Omega-3 Fish Oil</p>
+                    <p>• Multivitamin (type-specific)</p>
+                    <p>• Vitamin D3</p>
+                    <hr class="my-3">
+                    <h4 class="font-bold text-red-400">Interaction Warnings:</h4>
+                    <p>• Check with doctor before combining with medications</p>
+                    <p>• Take fish oil with meals to improve absorption</p>
+                    <button class="btn-primary mt-3 py-1 px-3 rounded">Download Full Report</button>
+                </div>
+            `;
+        }
+
+        function showBloodworkAnalyzer() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">AI Bloodwork Analyzer</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Upload Lab Results</h3>
+                            <div class="input-group">
+                                <select id="bloodworkBloodType">
+                                    <option value="">Blood Type</option>
+                                    <option value="O">Type O</option>
+                                    <option value="A">Type A</option>
+                                    <option value="B">Type B</option>
+                                    <option value="AB">Type AB</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="file" id="labResults" accept=".pdf,.jpg,.png">
+                            </div>
+                            <div class="input-group">
+                                <textarea id="specificConcerns" placeholder="Any specific health concerns or symptoms" rows="3"></textarea>
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="analyzeBloodwork()">Analyze Bloodwork</button>
+                        </div>
+                        <div id="bloodworkResults">
+                            <h3 class="text-lg font-bold mb-3">Analysis Results</h3>
+                            <p class="text-gray-400">Upload lab results to receive detailed analysis with blood type considerations.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         function analyzeBloodwork() {
-            alert('Bloodwork Analysis Complete!\n\nAI has analyzed the results and provided:\n• Supplement recommendations\n• Fruit recommendations for deficiencies\n• Holistic health suggestions\n• Peptide protocol options\n• Warning flags for concerning values');
+            const resultsDiv = document.getElementById('bloodworkResults');
+            resultsDiv.innerHTML = `
+                <h3 class="text-lg font-bold mb-3">Bloodwork Analysis</h3>
+                <div class="bg-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-green-400">Normal Ranges:</h4>
+                    <p>• Total Cholesterol: 180 mg/dL (Good)</p>
+                    <p>• HDL: 55 mg/dL (Excellent)</p>
+                    <p>• Blood Glucose: 90 mg/dL (Normal)</p>
+                    <hr class="my-3">
+                    <h4 class="font-bold text-yellow-400">Recommendations:</h4>
+                    <p>• Continue current nutrition protocol</p>
+                    <p>• Consider omega-3 supplementation</p>
+                    <p>• Schedule follow-up in 3 months</p>
+                    <button class="btn-primary mt-3 py-1 px-3 rounded">Download Full Report</button>
+                </div>
+            `;
         }
 
-        function recommendSupplements(event) {
-            event.preventDefault();
-            alert('Supplement Recommendations Generated!\n\nBased on health goals and current medications, the AI has created a safe, personalized supplement protocol with drug interaction warnings.');
+        function showPeptideProtocols() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">AI Peptide Protocols</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Protocol Selection</h3>
+                            <div class="input-group">
+                                <select id="peptideBloodType">
+                                    <option value="">Blood Type</option>
+                                    <option value="O">Type O</option>
+                                    <option value="A">Type A</option>
+                                    <option value="B">Type B</option>
+                                    <option value="AB">Type AB</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select id="peptideGoal">
+                                    <option value="">Primary Goal</option>
+                                    <option value="fat-loss">Fat Loss</option>
+                                    <option value="muscle-gain">Muscle Gain</option>
+                                    <option value="recovery">Recovery</option>
+                                    <option value="longevity">Longevity</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select id="experience">
+                                    <option value="">Experience Level</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="generatePeptideProtocol()">Generate Protocol</button>
+                        </div>
+                        <div id="peptideResults">
+                            <h3 class="text-lg font-bold mb-3">Peptide Protocol</h3>
+                            <p class="text-gray-400">Select your parameters to receive a customized peptide protocol with dosing guidelines.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        function recommendPeptides(event) {
-            event.preventDefault();
-            alert('Peptide Protocol Created!\n\nLatest peptides recommended:\n• Retatrutide for weight management\n• Semaglutide for appetite control\n• BPC-157 for recovery\n• TB-500 for healing\n• Selank for anxiety\n\nComplete with dosing, timing, and monitoring guidelines.');
+        function generatePeptideProtocol() {
+            const resultsDiv = document.getElementById('peptideResults');
+            resultsDiv.innerHTML = `
+                <h3 class="text-lg font-bold mb-3">Customized Peptide Protocol</h3>
+                <div class="bg-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-blue-400">Recommended Peptides:</h4>
+                    <p>• Semaglutide: 0.25mg weekly (fat loss)</p>
+                    <p>• BPC-157: 250mcg daily (recovery)</p>
+                    <p>• TB-500: 2mg twice weekly (healing)</p>
+                    <hr class="my-3">
+                    <h4 class="font-bold text-yellow-400">Administration:</h4>
+                    <p>• Blood type specific timing</p>
+                    <p>• Injection site rotation</p>
+                    <p>• Monitor for side effects</p>
+                    <button class="btn-primary mt-3 py-1 px-3 rounded">Download Protocol</button>
+                </div>
+            `;
         }
 
-        function generateHolisticPlan(event) {
-            event.preventDefault();
-            alert('Holistic Health Plan Generated!\n\nComprehensive plan includes:\n• Herbal medicine recommendations\n• Lifestyle modifications\n• Stress management techniques\n• Nutritional therapy\n• Mind-body practices');
+        function showContestPrep() {
+            const panel = document.getElementById('toolPanels');
+            panel.innerHTML = `
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">Contest Prep Protocols</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3">Competition Details</h3>
+                            <div class="input-group">
+                                <select id="contestBloodType">
+                                    <option value="">Blood Type</option>
+                                    <option value="O">Type O</option>
+                                    <option value="A">Type A</option>
+                                    <option value="B">Type B</option>
+                                    <option value="AB">Type AB</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select id="competitionType">
+                                    <option value="">Competition Type</option>
+                                    <option value="bodybuilding">Bodybuilding</option>
+                                    <option value="physique">Men's Physique</option>
+                                    <option value="bikini">Bikini</option>
+                                    <option value="figure">Figure</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="date" id="competitionDate" placeholder="Competition Date">
+                            </div>
+                            <div class="input-group">
+                                <select id="enhanced">
+                                    <option value="">Category</option>
+                                    <option value="natural">Natural</option>
+                                    <option value="enhanced">Enhanced</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary w-full py-2 px-4 rounded" onclick="generateContestPrep()">Generate Prep Plan</button>
+                        </div>
+                        <div id="contestResults">
+                            <h3 class="text-lg font-bold mb-3">Contest Prep Plan</h3>
+                            <p class="text-gray-400">Enter competition details to receive a comprehensive prep protocol tailored to your blood type.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        };
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        function generateContestPrep() {
+            const resultsDiv = document.getElementById('contestResults');
+            resultsDiv.innerHTML = `
+                <h3 class="text-lg font-bold mb-3">Contest Prep Protocol</h3>
+                <div class="bg-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-green-400">16-Week Timeline:</h4>
+                    <p>• Weeks 1-8: Moderate deficit, blood type diet</p>
+                    <p>• Weeks 9-12: Increased cardio, refined macros</p>
+                    <p>• Weeks 13-15: Peak week prep</p>
+                    <p>• Week 16: Competition week protocol</p>
+                    <hr class="my-3">
+                    <h4 class="font-bold text-blue-400">Blood Type Considerations:</h4>
+                    <p>• Type-specific carb cycling</p>
+                    <p>• Optimal training split</p>
+                    <p>• Peak week water/sodium manipulation</p>
+                    <button class="btn-primary mt-3 py-1 px-3 rounded">Download Complete Plan</button>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>
